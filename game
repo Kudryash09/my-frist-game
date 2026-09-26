@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Нажми на кнопку 🎮</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #12002b, #001f3f);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .game {
+            width: 90%;
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 40px;
+        }
+
+        #score {
+            font-size: 25px;
+            margin: 20px;
+        }
+
+        #button {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: none;
+            background: #6c4cff;
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 30px #6c4cff;
+        }
+
+        #button:active {
+            transform: scale(0.9);
+        }
+
+        #start {
+            margin-top: 30px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="game">
+
+    <h1>🎮 Нажми на кнопку!</h1>
+
+    <div id="score">
+        Очки: 0
+    </div>
+
+    <button id="button" disabled>
+        ЖМИ!
+    </button>
+
+    <br>
+
+    <button id="start">
+        ▶️ Начать игру
+    </button>
+
+    <p id="timer">
+        Время: 10
+    </p>
+
+</div>
+
+<script>
+
+let score = 0;
+let time = 10;
+let gameStarted = false;
+
+const button = document.getElementById("button");
+const start = document.getElementById("start");
+const scoreText = document.getElementById("score");
+const timerText = document.getElementById("timer");
+
+button.onclick = function() {
+
+    if (gameStarted) {
+        score++;
+
+        scoreText.textContent = "Очки: " + score;
+    }
+
+};
+
+start.onclick = function() {
+
+    score = 0;
+    time = 10;
+    gameStarted = true;
+
+    button.disabled = false;
+
+    scoreText.textContent = "Очки: 0";
+    timerText.textContent = "Время: 10";
+
+    let timer = setInterval(function() {
+
+        time--;
+
+        timerText.textContent = "Время: " + time;
+
+        if (time <= 0) {
+
+            clearInterval(timer);
+
+            gameStarted = false;
+            button.disabled = true;
+
+            alert("Игра закончена! 🎉 Очки: " + score);
+        }
+
+    }, 1000);
+
+};
+
+</script>
+
+</body>
+</html>
